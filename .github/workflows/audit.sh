@@ -13,7 +13,7 @@ for dir in $MODULE_DIR/*/*; do
 #     fi
 
     if [[ $manifest_check -eq 1 ]]; then
-        echo ::warning file=app.js::Missing semicolon
+        echo ::error ::Missing semicolon
     fi
     
 done
