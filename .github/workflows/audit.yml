@@ -2,9 +2,6 @@ name: Audit Modules
 
 on:
   push:
-    branches:
-      # - testing
-      - 181-automation-create-github-action-to-verify-module-format
   pull_request:
     branches:
       - testing
@@ -18,21 +15,21 @@ jobs:
 
     steps:
 
-      - name: Checkout Repository
-      - uses: actions/checkout@v3
+    - name: Checkout Repository
+    - uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
 
-      - name: Check Files
-        id: check-files
-        run: |
-          echo "job: running script to check changed files:"
-          chmod +x ./.github/workflows/audit.sh
-          ./.github/workflows/audit.sh
-          echo "job: Done"
+    - name: Check Files
+      id: check-files
+      run: |
+        echo "job: running script to check changed files:"
+        chmod +x ./.github/workflows/audit.sh
+        ./.github/workflows/audit.sh
+        echo "job: Done"
         # outputs:
         #   manifest-check-output:
         #     description: Checks for manifest.yml
