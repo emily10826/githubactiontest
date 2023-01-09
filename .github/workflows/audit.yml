@@ -3,7 +3,8 @@ name: Audit Modules
 on:
   push:
     branches:
-      - main
+      # - testing
+      - 181-automation-create-github-action-to-verify-module-format
   pull_request:
     branches:
       - testing
@@ -11,40 +12,31 @@ on:
       - deployed
 
 jobs:
-  # list-files:
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     paths: ${{ steps.list-files.outputs.paths }}
-  #   steps:
-  #     - name: List Files
-  #       id: list-files
-  #       uses: mirko-felice/list-files-action@master
-  #       with:
-  #         repo: ${{ github.repository }}
-  #         ref: ${{ github.ref }}
-  #         path: "./uploading_custom_modules/helm-charts/filebeat/configs/custom_mods"
-  #         ext: ".yml"
-  # list-files-test:
-  #   needs: list-files
-  #   strategy:
-  #     matrix:
-  #       paths: ${{ fromJson(needs.list-files.outputs.paths) }}
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Output results
-  #       run: |
-  #         echo ${{ matrix.paths }}
   check-files:
     runs-on: ubuntu-latest
+    name: Check Files
+
     steps:
+
+      - name: Checkout Repository
       - uses: actions/checkout@v3
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 14
+
       - name: Check Files
+        id: check-files
         run: |
           echo "job: running script to check changed files:"
           chmod +x ./.github/workflows/audit.sh
           ./.github/workflows/audit.sh
           echo "job: Done"
+        # outputs:
+        #   manifest-check-output:
+        #     description: Checks for manifest.yml
+
+      - name: Manifest Check Pass
+        if: steps.check-files.outputs.manifest-check-output == "pass"
+        run: exit 1
