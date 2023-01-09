@@ -13,9 +13,7 @@ for dir in $MODULE_DIR/*/*; do
 #     fi
 
     if [[ $manifest_check -eq 1 ]]; then
-        echo ::set-output name=manifest-check-output::$1
-    else
-        echo ::set-output name=manifest-check-output::$0
+        echo ::warning file=app.js::Missing semicolon
     fi
     
 done
