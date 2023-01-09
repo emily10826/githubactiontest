@@ -30,10 +30,3 @@ jobs:
         chmod +x ./.github/workflows/audit.sh
         ./.github/workflows/audit.sh
         echo "job: Done"
-        # outputs:
-        #   manifest-check-output:
-        #     description: Checks for manifest.yml
-
-#       - name: Manifest Check Pass
-#         if: steps.check-files.outputs.manifest-check-output == "pass"
-#         run: exit 1
