@@ -25,5 +25,5 @@ jobs:
         echo "job: Done"
 
     - name: Manifest Check Pass
-      if: steps.check-files.outputs.manifest-check-output == "pass"
+      if: steps.check-files.outputs.manifest-check-output == pass
       run: exit 1
