@@ -2,13 +2,7 @@ name: Audit Modules
 
 on:
   push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - testing
-      - ready
-      - deployed
 
 jobs:
   # list-files:
