@@ -23,3 +23,7 @@ jobs:
         chmod +x ./.github/workflows/audit.sh
         ./.github/workflows/audit.sh
         echo "job: Done"
+
+    - name: Manifest Check Pass
+      if: steps.check-files.outputs.manifest-check-output == "pass"
+      run: exit 1
