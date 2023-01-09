@@ -6,22 +6,15 @@ for dir in $MODULE_DIR/*/*; do
     log_check=$(find $dir -mindepth 1 -name "*.log" -type f | wc -l)
     readme_check=$(find $dir -maxdepth 1 -name "README.md" -type f | wc -l)
 
-    if [[ $manifest_check -eq 1 ]]; then
-        # echo ::set-output name=manifest-check-output::$pass
-        :
-    else
+    if [[ $manifest_check -ne 1 ]]; then
         echo ::warning ::"Missing manifest.yml in $dir."
     fi
 
-    if [[ $log_check -ge 3 ]]; then
-        :
-    else
+    if [[ $log_check -lt 3 ]]; then
         echo ::warning ::"Missing at least 3 log files in $dir."
-    fi 
+    fi
 
-    if [[ $readme_check -eq 1 ]]; then
-        :
-    else
+    if [[ $readme_check -ne 1 ]]; then
         echo ::warning ::"Missing README.md in $dir."
     fi
     
